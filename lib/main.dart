@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tumora/modules/layout.dart';
+
+import 'package:tumora/modules/login_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          useMaterial3: true,
           //main colors
           primaryColor: ColorManager.primary,
           primaryColorLight: ColorManager.white,
@@ -27,11 +29,20 @@ class MyApp extends StatelessWidget {
           splashColor: ColorManager.splash,
           //bottom nav theme
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              elevation: 0,
               backgroundColor: ColorManager.primary,
               unselectedItemColor: ColorManager.secondary,
-              selectedItemColor: ColorManager.greydark)),
-      home: const HomeScreen(),
+              selectedItemColor: ColorManager.greydark),
+          //input decoration theme
+          inputDecorationTheme: InputDecorationTheme(
+              floatingLabelStyle: TextStyle(color: ColorManager.primary),
+              border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              contentPadding: const EdgeInsets.only(left: 20),
+              // labelStyle: TextStyle(color: ColorManager.primary),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
+                  borderSide: BorderSide(color: ColorManager.primary)))),
+      home: const LoginScreen(),
     );
   }
 }

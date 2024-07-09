@@ -7,76 +7,109 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.secondary,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 52,
-                  backgroundColor: ColorManager.primary,
-                  child: const CircleAvatar(
-                    radius: 50,
-                    //todo change with person image from api
-                    foregroundImage: NetworkImage(
-                        'https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg'),
-                  ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Column(
+        backgroundColor: ColorManager.primary,
+        body: Container(
+            color: ColorManager.primary,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 40.0, left: 20, right: 20),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //todo add name
-                    const Text(
-                      'User Name',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    Row(
+                      children: [
+                        const CircleAvatar(
+                          radius: 52,
+                          child: CircleAvatar(
+                            radius: 50,
+                            //todo change with person image from api
+                            foregroundImage: NetworkImage(
+                                'https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg'),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //todo add name
+                            Text(
+                              'User Name',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorManager.white),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            //todo add id
+                            Text(
+                              'ID #123456789',
+                              style: TextStyle(
+                                  fontSize: 18, color: ColorManager.white),
+                            )
+                          ],
+                        )
+                      ],
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 15,
                     ),
-                    //todo add id
-                    Text(
-                      'ID #123456789',
-                      style:
-                          TextStyle(fontSize: 18, color: ColorManager.greydark),
-                    )
                   ],
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'Current Oppointments:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Expanded(
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                // scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: 7,
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(
-                    height: 5,
-                  );
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  return const CardBuilder();
-                },
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50))),
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 30.0,
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Oppointments',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Flexible(
+                          child: ListView.separated(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 10, right: 10, bottom: 10),
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: 15,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return const SizedBox(
+                                height: 5,
+                              );
+                            },
+                            itemBuilder: (BuildContext context, int index) {
+                              return const CardBuilder();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ])));
   }
 }
 
