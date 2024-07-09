@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tumora/modules/profile/profile_screen.dart';
+import 'package:tumora/modules/layout/layout.dart';
+import 'package:tumora/modules/register/register_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
+import 'package:tumora/shared/components.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,7 +13,8 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
   String? _validatePhoneNumber(String? value) {
     // Check if the input is a numeric value and has exactly 11 digits
@@ -27,7 +30,7 @@ class LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ProfileScreen(),
+            builder: (context) => const HomeScreen(),
           ));
     }
   }
@@ -54,28 +57,19 @@ class LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 40,
               ),
-              TextFormField(
+              TFF(
+                  label: 'Phone Number',
                   keyboardType: TextInputType.number,
-                  controller: _usernameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone Number',
-                  ),
-                  validator: _validatePhoneNumber),
+                  controller: _phoneController,
+                  validationMassage: _validatePhoneNumber.toString()),
               const SizedBox(
                 height: 10,
               ),
-              TextFormField(
+              TFF(
+                label: 'Password',
                 controller: _passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
+                isObsecure: true,
+                validationMassage: 'Please enter your password',
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -93,6 +87,27 @@ class LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Not a Member?'),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterScreen(),
+                            ));
+                      },
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(color: ColorManager.primary),
+                      ))
+                ],
+              )
             ],
           ),
         ),
