@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tumora/modules/layout/layout.dart';
 
 import 'package:tumora/modules/login/login_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                 borderSide: BorderSide(color: ColorManager.primary))),
       ),
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }

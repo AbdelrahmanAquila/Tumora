@@ -61,7 +61,7 @@ class LoginScreenState extends State<LoginScreen> {
                   label: 'Phone Number',
                   keyboardType: TextInputType.number,
                   controller: _phoneController,
-                  validationMassage: _validatePhoneNumber.toString()),
+                  validationMassage: _validatePhoneNumber),
               const SizedBox(
                 height: 10,
               ),
@@ -69,7 +69,14 @@ class LoginScreenState extends State<LoginScreen> {
                 label: 'Password',
                 controller: _passwordController,
                 isObsecure: true,
-                validationMassage: 'Please enter your password',
+                validationMassage: (value) {
+                  {
+                    if (value!.isEmpty) {
+                      return 'Please enter a valid password';
+                    }
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               SizedBox(

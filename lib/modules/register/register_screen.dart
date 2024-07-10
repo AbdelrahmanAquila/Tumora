@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tumora/modules/layout/layout.dart';
 import 'package:tumora/modules/login/login_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
 import 'package:tumora/shared/components.dart';
@@ -63,7 +64,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Expanded(
                         child: TFF(
                       label: 'First Name',
-                      validationMassage: 'Enter First name',
+                      validationMassage: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter First Name';
+                        }
+                        return null;
+                      },
                       controller: _firstNameController,
                     )),
                     const SizedBox(
@@ -71,7 +77,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                         child: TFF(
-                      validationMassage: 'Enter Last name',
+                      validationMassage: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter Last Name';
+                        }
+                        return null;
+                      },
                       label: 'Last Name',
                       controller: _lastNameController,
                     ))
@@ -84,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     keyboardType: TextInputType.number,
                     controller: _phoneController,
                     validationMassage:
-                        _validatePhoneNumber.toString()), //احتمال كبير متشتغلش
+                        _validatePhoneNumber), //احتمال كبير متشتغلش
                 const SizedBox(
                   height: 10,
                 ),
@@ -93,7 +104,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   label: 'E-mail',
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
-                  validationMassage: 'Enter a Valid Email',
+                  validationMassage: (value) {
+                    if (value!.isEmpty) {
+                      return 'enter a valid G-mail';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 10),
                 //! Password !\\
@@ -101,14 +117,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   label: 'Password',
                   controller: _passwordController,
                   isObsecure: true,
-                  validationMassage: 'Password isn\'t Correct',
+                  validationMassage: (value) {
+                    if (value!.isEmpty) {
+                      return 'A Valid Password';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 20),
                 //! adress !\\
                 TFF(
                   controller: _adressController,
                   label: 'Adress',
-                  validationMassage: 'Enter Your Adress',
+                  validationMassage: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter A valid adress';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 10),
                 //! National ID !\\
@@ -116,7 +142,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   keyboardType: TextInputType.number,
                   label: 'Nationality ID',
                   controller: _nationalIDController,
-                  validationMassage: 'Enter your nationality ID',
+                  validationMassage: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter First Name';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 20),
 
@@ -147,7 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const Text('alredy have an account?'),
                     TextButton(
                         onPressed: () {
-                          navigateTo(context, const LoginScreen());
+                          navigateTo(context, const HomeScreen());
                         },
                         child: Text(
                           'Sign in',

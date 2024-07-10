@@ -14,8 +14,7 @@ class TFF extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final bool isObsecure;
-  // final FormFieldValidator<String> validator;
-  final String? validationMassage;
+  final FormFieldValidator<String> validationMassage;
   const TFF(
       {super.key,
       // required this.validator,
@@ -28,12 +27,7 @@ class TFF extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {
-        if (value!.isEmpty) {
-          return validationMassage;
-        }
-        return null;
-      },
+      validator: validationMassage,
       obscureText: isObsecure,
       keyboardType: keyboardType,
       cursorColor: ColorManager.primary,
