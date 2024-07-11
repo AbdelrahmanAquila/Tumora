@@ -36,3 +36,29 @@ class TFF extends StatelessWidget {
     );
   }
 }
+
+class DefultButton extends StatelessWidget {
+  final String text;
+  final void Function()? onpressed;
+
+  const DefultButton({super.key, required this.onpressed, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 40,
+      width: double.infinity,
+      child: MaterialButton(
+        splashColor: ColorManager.splash,
+        textColor: ColorManager.white,
+        color: ColorManager.primary,
+        height: 30,
+        onPressed: onpressed,
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+}

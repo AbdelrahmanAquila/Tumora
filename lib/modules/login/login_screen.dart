@@ -38,10 +38,10 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
+      body: Form(
+        key: _formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -79,21 +79,7 @@ class LoginScreenState extends State<LoginScreen> {
                 },
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: MaterialButton(
-                  splashColor: ColorManager.splash,
-                  textColor: ColorManager.white,
-                  color: ColorManager.primary,
-                  height: 30,
-                  onPressed: _login,
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ),
+              DefultButton(onpressed: _login, text: 'Login'),
               const SizedBox(
                 height: 10,
               ),
