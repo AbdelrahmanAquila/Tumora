@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:tumora/shared/color_manager.dart';
 
@@ -65,46 +66,49 @@ class ProfileScreen extends StatelessWidget {
                 height: 10,
               ),
               Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 30.0,
-                    ),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'Oppointments',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Flexible(
-                          child: ListView.separated(
-                            padding: const EdgeInsets.only(
-                                top: 10, left: 10, right: 10, bottom: 10),
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: 15,
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const SizedBox(
-                                height: 5,
-                              );
-                            },
-                            itemBuilder: (BuildContext context, int index) {
-                              return const CardBuilder();
-                            },
+                child: SlideInUp(
+                  duration: const Duration(milliseconds: 500),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50),
+                            topRight: Radius.circular(50))),
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 30.0,
+                      ),
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Oppointments',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Flexible(
+                            child: ListView.separated(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 10, right: 10, bottom: 10),
+                              physics: const BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: 15,
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return const SizedBox(
+                                  height: 5,
+                                );
+                              },
+                              itemBuilder: (BuildContext context, int index) {
+                                return const CardBuilder();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

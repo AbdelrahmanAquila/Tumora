@@ -1,3 +1,4 @@
+// import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:tumora/modules/doctor_data/doctor_data.dart';
 import 'package:tumora/shared/color_manager.dart';
@@ -11,37 +12,55 @@ class DoctorsScreen extends StatefulWidget {
 }
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
+  List list = [1, 2, 3, 4, 5];
+  bool startAnimation = false;
+  double screenWidth = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        setState(() {
+          startAnimation = true;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
         body: Flexible(
       child: ListView.separated(
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: 7,
+        itemCount: 15,
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(
             height: 20,
           );
         },
         itemBuilder: (BuildContext context, int index) {
-          return const DocCardBuilder();
+          return doctorListItem(context, index);
         },
       ),
     ));
   }
-}
 
-class DocCardBuilder extends StatelessWidget {
-  const DocCardBuilder({super.key});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget doctorListItem(context, int index) {
     return GestureDetector(
       onTap: () {
         navigateTo(context, const DoctorData());
       },
-      child: Container(
+      child: AnimatedContainer(
+        transform:
+            Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
+        curve: Curves.easeInOut,
+        duration: Duration(milliseconds: 300 + (index * 300)),
         margin: const EdgeInsets.only(
           left: 15,
           right: 15,
@@ -138,3 +157,12 @@ class DocCardBuilder extends StatelessWidget {
     );
   }
 }
+
+// class DocCardBuilder extends StatelessWidget {
+//   const DocCardBuilder({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return
+//   }
+
