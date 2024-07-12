@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tumora/modules/bookin_screen/booking_screen.dart';
+import 'package:tumora/modules/users/bookin_screen/booking_screen.dart';
 import 'package:tumora/shared/components.dart';
 
 class DoctorData extends StatefulWidget {

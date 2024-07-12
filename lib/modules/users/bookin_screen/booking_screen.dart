@@ -124,29 +124,23 @@ class _BookingScreenState extends State<BookingScreen> {
 
   Widget _tableCalender() {
     return TableCalendar(
-      rowHeight: 48, //
-      calendarFormat: _calenderFormat, //
-      availableCalendarFormats: const {CalendarFormat.month: 'Month'}, //
+      rowHeight: 48,
+      calendarFormat: _calenderFormat,
+      availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       onFormatChanged: (format) {
-        //
         setState(() {
-          //
-          _calenderFormat = format; //
-        }); //
-      }, //
+          _calenderFormat = format;
+        });
+      },
       calendarStyle: CalendarStyle(
-          //
           todayDecoration: BoxDecoration(
-              //
-              color: ColorManager.primary,
-              shape: BoxShape.circle)), //
-
+              color: ColorManager.primary, shape: BoxShape.circle)),
       headerStyle:
           const HeaderStyle(formatButtonVisible: false, titleCentered: true),
-      currentDay: _currentDay, //
-      focusedDay: _focusDay, //
-      firstDay: DateTime.now(), //
-      lastDay: DateTime.utc(2024, 12, 30), //
+      currentDay: _currentDay,
+      focusedDay: _focusDay,
+      firstDay: DateTime.now(),
+      lastDay: DateTime.utc(2024, 12, 30),
       onDaySelected: (selectedDay, focusedDay) {
         setState(() {
           _currentDay = selectedDay;

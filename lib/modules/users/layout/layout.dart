@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tumora/modules/cura/cura_screen.dart';
-import 'package:tumora/modules/doctors/doctors_screen.dart';
-import 'package:tumora/modules/profile/profile_screen.dart';
+import 'package:tumora/modules/users/cura/cura_screen.dart';
+import 'package:tumora/modules/users/doctors/doctors_screen.dart';
+import 'package:tumora/modules/users/profile/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

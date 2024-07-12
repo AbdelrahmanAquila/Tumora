@@ -62,3 +62,45 @@ class DefultButton extends StatelessWidget {
     );
   }
 }
+
+class MyDropDown extends StatelessWidget {
+  final String? initianlValue;
+  final String hint;
+
+  final List valuesList;
+  final void Function(String?) doSetStateHere;
+
+  const MyDropDown(
+      {super.key,
+      required this.initianlValue,
+      required this.valuesList,
+      required this.doSetStateHere,
+      required this.hint});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          // color: Colors.grey,
+          border: Border.all(color: Colors.grey, width: 1.5),
+          borderRadius: const BorderRadius.all(Radius.circular(15))),
+      child: DropdownButton<String?>(
+          // isExpanded: true,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          underline: const SizedBox(),
+          hint: Text(hint),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          value: initianlValue,
+          onChanged: doSetStateHere,
+          //List Items
+          items: valuesList.map(
+            (e) {
+              return DropdownMenuItem(
+                value: e.toString(),
+                child: Text(e),
+              );
+            },
+          ).toList()),
+    );
+  }
+}

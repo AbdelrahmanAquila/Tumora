@@ -1,7 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:tumora/modules/layout/layout.dart';
-import 'package:tumora/modules/register/register_screen.dart';
+import 'package:tumora/modules/doctor/login/doctor_login.dart';
+import 'package:tumora/modules/users/layout/layout.dart';
+import 'package:tumora/modules/users/register/register_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
 import 'package:tumora/shared/components.dart';
 
@@ -53,6 +54,18 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(25),
+        child: FloatingActionButton(
+          onPressed: () {
+            navigateTo(context, const DoctorLoginScreen());
+          },
+          child: const Icon(
+            Icons.medical_information,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: Padding(

@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:tumora/modules/layout/layout.dart';
-import 'package:tumora/modules/login/login_screen.dart';
+import 'package:tumora/modules/users/layout/layout.dart';
+import 'package:tumora/modules/users/login/login_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
 import 'package:tumora/shared/components.dart';
 
