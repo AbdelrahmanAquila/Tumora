@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:tumora/modules/users/layout/layout.dart';
-import 'package:tumora/modules/users/login/login_screen.dart';
+import 'package:tumora/modules/doctor/layout/doctor_layout.dart';
+import 'package:tumora/modules/doctor/login/doctor_login.dart';
 import 'package:tumora/shared/color_manager.dart';
 import 'package:tumora/shared/components.dart';
 
@@ -45,7 +45,6 @@ class _DoctorRegisterScreenState extends State<DoctorRegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _qualificationsContriller =
       TextEditingController();
-  final TextEditingController _nationalIDController = TextEditingController();
 
   String? _validatePhoneNumber(String? newvalue) {
     // Check if the input is a numeric newvalue and has exactly 11 digits
@@ -61,7 +60,7 @@ class _DoctorRegisterScreenState extends State<DoctorRegisterScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const LoginScreen()
+            builder: (context) => const DoctorLoginScreen()
             //sdd screen nav
             ,
           ));
@@ -274,7 +273,6 @@ class _DoctorRegisterScreenState extends State<DoctorRegisterScreen> {
                   controller: _qualificationsContriller,
                 ),
                 const SizedBox(height: 20),
-
                 //todo add gender select here
                 //! Button !\\
                 DefultButton(onpressed: _register, text: 'Register'),
@@ -288,7 +286,7 @@ class _DoctorRegisterScreenState extends State<DoctorRegisterScreen> {
                     const Text('alredy have an account?'),
                     TextButton(
                         onPressed: () {
-                          navigateTo(context, const HomeScreen());
+                          navigateTo(context, const DoctorHomeScreen());
                         },
                         child: Text(
                           'Sign in',

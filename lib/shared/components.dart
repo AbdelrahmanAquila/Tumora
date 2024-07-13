@@ -104,3 +104,125 @@ class MyDropDown extends StatelessWidget {
     );
   }
 }
+
+// ignore: must_be_immutable
+class CardBuilder extends StatelessWidget {
+  final bool startAnimation;
+  final double screenWidth;
+  final int index;
+  final String? imageUrl;
+  final String? drName;
+  final String? drMajor;
+  void Function()? ontap;
+  CardBuilder(
+      {super.key,
+      required this.screenWidth,
+      required this.index,
+      required this.imageUrl,
+      required this.drName,
+      required this.drMajor,
+      required this.startAnimation,
+      this.ontap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: ontap,
+      child: AnimatedContainer(
+        transform:
+            Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
+        curve: Curves.easeInOut,
+        duration: Duration(milliseconds: 300 + (index * 300)),
+        margin: const EdgeInsets.only(
+          left: 15,
+          right: 15,
+        ),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                spreadRadius: 1,
+                color: ColorManager.greydark,
+                blurRadius: 5,
+                offset: const Offset(-3, 3))
+          ],
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
+          color: ColorManager.secondary,
+        ),
+        height: 100,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(
+                  width: 100,
+                  fit: BoxFit.fitHeight,
+                  image: NetworkImage(imageUrl!)),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //todo doc name and time from api
+
+                      Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.visible,
+                        drName!,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.visible,
+                        drMajor!,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      //stars rating row
+                      const Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          Icon(
+                            Icons.star_border,
+                          ),
+                          Icon(
+                            Icons.star_border,
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              const Icon(
+                Icons.more_vert,
+                size: 30,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

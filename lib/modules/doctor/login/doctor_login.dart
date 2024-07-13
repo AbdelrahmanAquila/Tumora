@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:tumora/modules/doctor/layout/doctor_layout.dart';
 import 'package:tumora/modules/doctor/register/doctor_register.dart';
-import 'package:tumora/modules/users/login/login_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
 import 'package:tumora/shared/components.dart';
 
@@ -32,7 +32,7 @@ class DoctorLoginScreenState extends State<DoctorLoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
+            builder: (context) => const DoctorHomeScreen(),
           ));
     }
   }
@@ -53,16 +53,16 @@ class DoctorLoginScreenState extends State<DoctorLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(25),
-        child: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(
-            Icons.medical_information,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.all(25),
+      //   child: FloatingActionButton(
+      //     onPressed: () {},
+      //     child: const Icon(
+      //       Icons.medical_information,
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // ),
       body: Form(
         key: _formKey,
         child: Padding(

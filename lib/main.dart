@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tumora/modules/users/login/login_screen.dart';
+import 'package:tumora/modules/doctor/login/doctor_login.dart';
 import 'package:tumora/shared/color_manager.dart';
 
 void main() {
@@ -40,10 +40,12 @@ class MyApp extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   borderSide: BorderSide(color: ColorManager.primary))),
+          //AlertDialoge Theme
+
           //FAB Theme
           floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: ColorManager.primary)),
-      home: const LoginScreen(),
+      home: const DoctorLoginScreen(),
     );
   }
 }
