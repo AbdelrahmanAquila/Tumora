@@ -15,7 +15,7 @@ class DoctorLoginScreen extends StatefulWidget {
 class DoctorLoginScreenState extends State<DoctorLoginScreen> {
   bool startAnimation = false;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
   String? _validatePhoneNumber(String? value) {
@@ -27,13 +27,37 @@ class DoctorLoginScreenState extends State<DoctorLoginScreen> {
     return null;
   }
 
+  // Future<void> _login() async {
+  //   String email = _emailController.text;
+  //   String password = _passwordController.text;
+
+  //   try {
+  //     Response response = await _dio.post(
+  //       'http://localhost:3000/doctors/login',
+  //       data: {
+  //         'email': email,
+  //         'password': password,
+  //       },
+  //     );
+  //     print(response.data);
+  //     // Handle successful login
+  //   } on DioException catch (e) {
+  //     if (e.response != null) {
+  //       print('Error response: ${e.response?.data}');
+  //       print('Status code: ${e.response?.statusCode}');
+  //     } else {
+  //       print('Error message: ${e.message}');
+  //     }
+  //     // Handle login error
+  //   }
+  // }
+
   void _login() {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DoctorHomeScreen(),
-          ));
+      _validatePhoneNumber;
+      navigateTo(context, const DoctorHomeScreen());
+    } else {
+      return;
     }
   }
 
@@ -85,17 +109,25 @@ class DoctorLoginScreenState extends State<DoctorLoginScreen> {
                   height: 40,
                 ),
                 TFF(
-                    label: 'Phone Number',
-                    keyboardType: TextInputType.number,
-                    controller: _phoneController,
-                    validationMassage: _validatePhoneNumber),
+                  label: 'email',
+                  keyboardType: TextInputType.emailAddress,
+                  controller: _emailController,
+                  validationMassage: (value) {
+                    {
+                      if (value!.isEmpty) {
+                        return 'Please enter a valid E-mail';
+                      }
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 10,
                 ),
                 TFF(
                   label: 'Password',
                   controller: _passwordController,
-                  isObsecure: true,
+                  isObsecure: false,
                   validationMassage: (value) {
                     {
                       if (value!.isEmpty) {

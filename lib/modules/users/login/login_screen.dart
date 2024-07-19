@@ -5,6 +5,7 @@ import 'package:tumora/modules/users/layout/layout.dart';
 import 'package:tumora/modules/users/register/register_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
 import 'package:tumora/shared/components.dart';
+import 'package:tumora/shared/dio._helper.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,11 +15,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
+  DioHelper dio = DioHelper();
   bool startAnimation = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
+
   String? _validatePhoneNumber(String? value) {
     // Check if the input is a numeric value and has exactly 11 digits
     final numericRegex = RegExp(r'^[0-9]{11}$');
@@ -28,6 +30,7 @@ class LoginScreenState extends State<LoginScreen> {
     return null;
   }
 
+//todo send user data here
   void _login() {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
@@ -80,6 +83,7 @@ class LoginScreenState extends State<LoginScreen> {
                   radius: 52,
                   child: const CircleAvatar(
                     radius: 50,
+                    //todo replace with asset image for company logo
                     backgroundImage: NetworkImage(
                         'https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1717804800&semt=sph'),
                   ),
@@ -87,6 +91,7 @@ class LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 40,
                 ),
+                //! Enter phone number
                 TFF(
                     label: 'Phone Number',
                     keyboardType: TextInputType.number,
@@ -95,6 +100,7 @@ class LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 10,
                 ),
+                //! Enter Pass
                 TFF(
                   label: 'Password',
                   controller: _passwordController,
@@ -109,6 +115,7 @@ class LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 20),
+                //Button
                 DefultButton(onpressed: _login, text: 'Login'),
                 const SizedBox(
                   height: 10,
@@ -117,6 +124,7 @@ class LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text('Not a Member?'),
+                    //Sign Up Page
                     TextButton(
                         onPressed: () {
                           Navigator.push(

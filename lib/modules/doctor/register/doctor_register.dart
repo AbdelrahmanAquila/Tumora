@@ -4,6 +4,7 @@ import 'package:tumora/modules/doctor/layout/doctor_layout.dart';
 import 'package:tumora/modules/doctor/login/doctor_login.dart';
 import 'package:tumora/shared/color_manager.dart';
 import 'package:tumora/shared/components.dart';
+import 'package:tumora/shared/dio._helper.dart';
 
 class DoctorRegisterScreen extends StatefulWidget {
   const DoctorRegisterScreen({super.key});
@@ -13,10 +14,11 @@ class DoctorRegisterScreen extends StatefulWidget {
 }
 
 class _DoctorRegisterScreenState extends State<DoctorRegisterScreen> {
+  DioHelper dio = DioHelper();
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-
+  String? firstname;
   String? major;
   List majors = [
     'Cardiology ',
@@ -37,7 +39,7 @@ class _DoctorRegisterScreenState extends State<DoctorRegisterScreen> {
     '7',
     '8',
     '9',
-    '10+',
+    '10',
   ];
 
   final TextEditingController _phoneController = TextEditingController();
@@ -57,13 +59,41 @@ class _DoctorRegisterScreenState extends State<DoctorRegisterScreen> {
 
   void _register() {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DoctorLoginScreen()
-            //sdd screen nav
-            ,
-          ));
+      dio.postRequest('http://192.168.1.9:3000/doctors/login', {
+        'firstname': 'roro'
+        // '${_firstNameController.text}${_lastNameController.text}'
+        ,
+        'specialization': 'Asnan'
+        //major
+        ,
+        'experience': 10
+        // int.parse(years)
+        ,
+        'email': 'roro@gmail.com'
+        // _emailController.text
+        ,
+        'phone': 01093108808
+        // int.parse(_phoneController.text)
+        ,
+        'password': '12345'
+        //_passwordController
+        ,
+        "working_hours": {"monday": "9:00-17:00", "tuesday": "9:00-17:00"},
+        "qualification": "MBBS",
+      }, headers: {
+        'Postman-Token': '587b94ff-44a9-4836-8eb1-53ad91b75b18'
+        //   'Content-Type': 'application/json',
+        //   'User-Agent': 'PostmanRuntime/7.40.0',
+        //   'Accept': '*/*',
+        //   'Accept-Encoding': 'gzip, deflate, br',
+        //   'Connection': 'keep-alive',
+      });
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => const DoctorLoginScreen()
+      //       ,
+      //     ));
     }
   }
 
@@ -254,7 +284,7 @@ class _DoctorRegisterScreenState extends State<DoctorRegisterScreen> {
                         valuesList: yearsOfExp,
                         doSetStateHere: (newValue) {
                           setState(() {
-                            years = newValue;
+                            years = newValue!;
                           });
                         },
                       ),

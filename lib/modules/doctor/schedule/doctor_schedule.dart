@@ -14,23 +14,26 @@ class DoctorScheduleScreen extends StatefulWidget {
 
 class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
   final _formKey = GlobalKey<FormState>();
-  String? dayOrNight;
-  CalendarFormat _calenderFormat = CalendarFormat.month;
   DateTime _currentDay = DateTime.now();
   DateTime _focusDay = DateTime.now();
   int? bookingSlot;
   int? _currentIndex;
   bool _isHoliday = false;
-  bool _daySelected = false;
-  bool _timeSelcted = false;
 
   DateTime startHour = DateTime.now();
+
+  bool _timeSelcted = true;
+  bool _daySelected = true;
+
+  //Time Picker
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(startHour),
     );
     setState(() {
+      //todo send start hour to db
+
       startHour = DateTime(
         startHour.year,
         startHour.month,
@@ -41,6 +44,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
     });
   }
 
+  //dialogo to select range
   TextEditingController controller = TextEditingController();
   void _showTimesSettings(context) {
     bool tempValue = is30Min;
@@ -51,12 +55,14 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
           key: _formKey,
           child: AlertDialog(
             actions: <Widget>[
+              //Confirmation Button
               TextButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       setState(() {
-                        workingHours = int.parse(controller.text);
-                        is30Min = tempValue;
+                        workingHours = int.parse(
+                            controller.text); //todo send working hours to db
+                        is30Min = tempValue; //todo send 30min  to db
                         Navigator.of(context).pop();
                       });
                     }
@@ -72,6 +78,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    //Working Hours Form Field
                     TFF(
                       controller: controller,
                       label: 'Hours?',
@@ -83,6 +90,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
                       },
                       keyboardType: TextInputType.phone,
                     ),
+                    //30min Radio Button
                     Row(
                       children: [
                         Radio<bool>(
@@ -129,11 +137,13 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
 
   int workingHours = 3;
   bool is30Min = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           actions: [
+            //Picking Time
             IconButton(
                 onPressed: () {
                   setState(() {
@@ -141,6 +151,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
                   });
                 },
                 icon: const Icon(Icons.edit)),
+            //Setting Work Hours
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () => setState(() {
@@ -155,19 +166,20 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
           slivers: [
             SliverToBoxAdapter(
               child: Column(children: [
-                // TimePickerDialog(
-                //   initialTime: TimeOfDay.now(),
-                // ),
+                //Calender
                 _tableCalender(),
                 const SizedBox(
                   height: 10,
                 ),
+                //
                 const Text(
                   'Select Consultion Time',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                 ),
               ]),
             ),
+
+            //! Showing The Weekenn Text!\\
             _isHoliday
                 ? SliverToBoxAdapter(
                     child: Container(
@@ -185,9 +197,15 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
                       ),
                     ),
                   )
+
+                // Showing The Grid View
+                //todo recive its data from db
                 : SliverGrid(
                     delegate: SliverChildBuilderDelegate((context, index) {
-                      final time = startHour.add(Duration(minutes: index * 30));
+                      late final DateTime time;
+                      is30Min
+                          ? time = startHour.add(Duration(minutes: index * 30))
+                          : time = startHour.add(Duration(hours: index + 1));
                       final formattedTime = DateFormat('h:mm a').format(time);
                       return InkWell(
                         splashColor: Colors.transparent,
@@ -220,36 +238,13 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
                                       : null),
                             )),
                       );
-                    }, childCount: is30Min ? workingHours * 2 : workingHours),
+                    },
+                        childCount: is30Min
+                            ? workingHours * 2
+                            : workingHours), //todo get from dp list
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3, childAspectRatio: 1.5)),
-            // SliverToBoxAdapter(
-            //   child: Container(
-            //     padding:
-            //         const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            //     child: DefultButton(
-            //       // width: double.infinity,
-            //       text: 'Confirm Appointment',
-            //       onpressed: () {
-            //         //convert date/day/time into string first
-            //         // final getDate = DateConverted.getDate(_currentDay);
-            //         // final getDay = DateConverted.getDay(_currentDay.weekday);
-            //         // final getTime = DateConverted.getTime(_currentIndex!);
-
-            //         // final booking = await DioProvider().bookAppointment(
-            //         //     getDate, getDay, getTime, doctor['doctor_id'], token!);
-
-            //         //if booking return status code 200, then redirect to success booking page
-
-            //         // if (booking == 200) {
-            //         //   MyApp.navigatorKey.currentState!
-            //         //       .pushNamed('success_booking');
-            //         // }
-            //       },
-            //     ),
-            //   ),
-            // ),
           ],
         ));
   }
@@ -259,11 +254,6 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
       rowHeight: 48,
       calendarFormat: CalendarFormat.month,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-      onFormatChanged: (format) {
-        setState(() {
-          _calenderFormat = format;
-        });
-      },
       calendarStyle: CalendarStyle(
           todayDecoration: BoxDecoration(
               color: ColorManager.primary, shape: BoxShape.circle)),
@@ -275,11 +265,12 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
       lastDay: DateTime.utc(2024, 12, 30),
       onDaySelected: (selectedDay, focusedDay) {
         setState(() {
-          _currentDay = selectedDay;
+          // Selecting Day
+          _currentDay = selectedDay; //todo send to db
           _focusDay = focusedDay;
           _daySelected = true;
 
-          // Checking For Holidays
+          // Checking For Weekends
           if (selectedDay.weekday == 6 || selectedDay.weekday == 7) {
             _isHoliday = true;
             _currentIndex = null;

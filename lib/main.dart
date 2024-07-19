@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tumora/modules/doctor/login/doctor_login.dart';
+import 'package:tumora/modules/users/login/login_screen.dart';
 import 'package:tumora/shared/color_manager.dart';
 
 void main() {
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           //FAB Theme
           floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: ColorManager.primary)),
-      home: const DoctorLoginScreen(),
+      home: const LoginScreen(),
     );
   }
 }
